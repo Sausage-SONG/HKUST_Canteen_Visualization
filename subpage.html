@@ -76,7 +76,7 @@
                 .attr("class", "context")
                 .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-            d3.csv("total.csv", type, function(error, data) {
+            d3.csv("./total.csv", type, function(error, data) {
                 if (error) throw error;
                 // console.log(d3.extent(data, function(d) { return d.date; }))
 
@@ -121,32 +121,32 @@
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                     .call(zoom);
             });
-        }
 
-        function brushed() {
-            if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
-            var s = d3.event.selection || x2.range();
-            x.domain(s.map(x2.invert, x2));
-            focus.select(".area").attr("d", area);
-            focus.select(".axis--x").call(xAxis);
-            svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
-                .scale(width / (s[1] - s[0]))
-                .translate(-s[0], 0));
-        }
+            function brushed() {
+                if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+                var s = d3.event.selection || x2.range();
+                x.domain(s.map(x2.invert, x2));
+                focus.select(".area").attr("d", area);
+                focus.select(".axis--x").call(xAxis);
+                svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+                    .scale(width / (s[1] - s[0]))
+                    .translate(-s[0], 0));
+            }
 
-        function zoomed() {
-            if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
-            var t = d3.event.transform;
-            x.domain(t.rescaleX(x2).domain());
-            focus.select(".area").attr("d", area);
-            focus.select(".axis--x").call(xAxis);
-            context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
-        }
+            function zoomed() {
+                if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+                var t = d3.event.transform;
+                x.domain(t.rescaleX(x2).domain());
+                focus.select(".area").attr("d", area);
+                focus.select(".axis--x").call(xAxis);
+                context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
+            }
 
-        function type(d) {
-            d.date = parseDate(d.date);
-            d.total = +d.total;
-            return d;
+            function type(d) {
+                d.date = parseDate(d.date);
+                d.total = +d.total;
+                return d;
+            }
         }
 
     </script>
