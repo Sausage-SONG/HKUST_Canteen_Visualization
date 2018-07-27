@@ -19,8 +19,25 @@
     
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
-        // Parameter
+        // Current canteen and change function
         var current_canteen = 'total';
+        function changeCanteen(name) {
+            clear_();
+            current_canteen = name;
+            if (current_design == 1){
+                design1('./data/'+current_canteen+'.csv');
+            }
+        }
+        
+        // Current design and change function
+        var current_design = 1;
+        function changeDesign(index){
+            clear_();
+            current_design = index;
+            if (current_design == 1){
+                design1('./data/'+current_canteen+'.csv')
+            }
+        }
         
         // Clear and Insert
         function clear_() {
@@ -174,8 +191,15 @@
 
 <body>
     <div id='buttons'>
-        <button type="button" onclick="design1('./data/'+current_canteen+'.csv')">Design1</button>
-        <button type="button" onclick="clear_()">Clear</button>
+        <button type="button" onclick="changeDesign(1)">Brush & Zoom</button><br/>
+        <button type="button" onclick="changeCanteen('total')">total</button>
+        <button type="button" onclick="changeCanteen('ct1')">ct1</button>
+        <button type="button" onclick="changeCanteen('ct5')">ct5</button>
+        <button type="button" onclick="changeCanteen('ct7')">ct7</button>
+        <button type="button" onclick="changeCanteen('ctg')">ctg</button>
+        <button type="button" onclick="changeCanteen('cts')">cts</button>
+        <button type="button" onclick="changeCanteen('ctl')">ctl</button>
+        <button type="button" onclick="changeCanteen('ctc')">ctc</button>
     </div>
     <div id='charts'></div>
 </body>
