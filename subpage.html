@@ -1,29 +1,49 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Untitled</title>
+    <title>Subpage</title>
     <meta charset="utf-8">
     
     <style>
-    .area {
-        fill: steelblue;
-        clip-path: url(#clip);
-    }
+        .area {
+            fill: steelblue;
+            clip-path: url(#clip);
+        }
 
-    .zoom {
-        cursor: move;
-        fill: none;
-        pointer-events: all;
-    }
+        .zoom {
+            cursor: move;
+            fill: none;
+            pointer-events: all;
+        }
     </style>
+    
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
-        var parseDate = d3.timeParse("%Y %m %d %H %M");
-        function design1() {            
-            var svg = d3.select('body')
+        // Parameter
+        var current_canteen = 'total';
+        
+        // Clear and Insert
+        function clear_() {
+            d3.select('#charts').remove('#chart');
+            d3.select('body')
+                .append('div')
+                    .attr('id','charts');
+        }
+        
+        function insert() {
+            var svg = d3.select('#charts')
                 .append('svg')
-                    .attr('height','500')
-                    .attr('width','960')
+                    .attr('height','0')
+                    .attr('width','0')
+                    .attr('id','chart');
+        }
+        // Design 1
+        var parseDate = d3.timeParse("%Y %m %d %H %M");
+        function design1(path) { 
+            insert();
+            var svg = d3.select('#chart')
+                        .attr('height','500')
+                        .attr('width','960');
         
             var margin = {top: 20, right: 20, bottom: 110, left: 40},
                 margin2 = {top: 430, right: 20, bottom: 30, left: 40},
@@ -76,7 +96,7 @@
                 .attr("class", "context")
                 .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-            d3.csv("./total.csv", type, function(error, data) {
+            d3.csv(path, type, function(error, data) {
                 if (error) throw error;
                 // console.log(d3.extent(data, function(d) { return d.date; }))
 
@@ -153,5 +173,9 @@
 </head>
 
 <body>
-    <button type="button" onclick="design1()">Design1</button>
+    <div id='buttons'>
+        <button type="button" onclick="design1(current_canteen+'.csv')">Design1</button>
+        <button type="button" onclick="clear_()">Clear</button>
+    </div>
+    <div id='charts'></div>
 </body>
