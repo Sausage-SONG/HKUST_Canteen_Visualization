@@ -15,31 +15,74 @@
             fill: none;
             pointer-events: all;
         }
+        
+        .design_button , .canteen_button { 
+            width: 100px; 
+            height: 50px; 
+            border: none;
+            border-radius: 25px;
+            background: #DCDCDC; 
+            cursor: pointer; 
+            outline: none; 
+            font-family: Microsoft YaHei; 
+            color: black; 
+            font-size: 16px; 
+            -webkit-transition-duration: 0.7s;
+        }
+        
+        .canteen_button:hover {
+            background-color: #1919E6 !important;
+            color: white !important;
+        }
+        
+        .design_button {
+            width: 500px;
+        }
+        
+        .canteen_button {
+            width: 184px;
+        }
+        
     </style>
     
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
-        // Current canteen and change function
+        // Colors var
+        var unselected = '#DCDCDC',
+            selected = '#1919E6',
+            middle = '#',
+            black = '#FFFFFF',
+            white = '#000000';
+        
+        // Current_canteen var and change function
         var current_canteen = 'total';
         function changeCanteen(name) {
             clear_();
+            document.getElementById(current_canteen).style.background = unselected;
+            document.getElementById(current_canteen).style.color = white;
             current_canteen = name;
+            document.getElementById(current_canteen).style.background = selected;
+            document.getElementById(current_canteen).style.color = black;
             if (current_design == 1){
                 design1('./data/'+current_canteen+'.csv');
             }
         }
         
-        // Current design and change function
+        // Current_design var and change function
         var current_design = 1;
         function changeDesign(index){
             clear_();
+            document.getElementById('design'+current_design.toString()).style.background = unselected;
+            document.getElementById('design'+current_design.toString()).style.color = white;
             current_design = index;
+            document.getElementById('design'+current_design.toString()).style.background = selected;
+            document.getElementById('design'+current_design.toString()).style.color = black;
             if (current_design == 1){
                 design1('./data/'+current_canteen+'.csv')
             }
         }
         
-        // Clear and Insert
+        // Clear previous SVG function and insert new SVG function
         function clear_() {
             d3.select('#charts').remove('#chart');
             d3.select('body')
@@ -54,7 +97,8 @@
                     .attr('width','0')
                     .attr('id','chart');
         }
-        // Design 1
+        
+        // Design 1 (Zoom & Brush)
         var parseDate = d3.timeParse("%Y %m %d %H %M");
         function design1(path) { 
             insert();
@@ -185,21 +229,28 @@
                 return d;
             }
         }
-
+        // End of Design 1
     </script>
 </head>
 
 <body>
     <div id='buttons'>
-        <button type="button" onclick="changeDesign(1)">Brush & Zoom</button><br/>
-        <button type="button" onclick="changeCanteen('total')">total</button>
-        <button type="button" onclick="changeCanteen('ct1')">ct1</button>
-        <button type="button" onclick="changeCanteen('ct5')">ct5</button>
-        <button type="button" onclick="changeCanteen('ct7')">ct7</button>
-        <button type="button" onclick="changeCanteen('ctg')">ctg</button>
-        <button type="button" onclick="changeCanteen('cts')">cts</button>
-        <button type="button" onclick="changeCanteen('ctl')">ctl</button>
-        <button type="button" onclick="changeCanteen('ctc')">ctc</button>
+        <button type="button" class="design_button" id='design1' onclick="changeDesign(1)">Brush & Zoom</button>
+        <button type="button" class="design_button" id='design2' onclick="">Design2</button>
+        <button type="button" class="design_button" id='design3' onclick="">Design3</button><br/><br/>
+        <button type="button" class="canteen_button" id='total' onclick="changeCanteen('total')">Total</button>
+        <button type="button" class="canteen_button" id='ct1' onclick="changeCanteen('ct1')">LG1</button>
+        <button type="button" class="canteen_button" id='ct5' onclick="changeCanteen('ct5')">Mcdonald's</button>
+        <button type="button" class="canteen_button" id='ct7' onclick="changeCanteen('ct7')">LG7</button>
+        <button type="button" class="canteen_button" id='ctg' onclick="changeCanteen('ctg')">Nanbei</button>
+        <button type="button" class="canteen_button" id='cts' onclick="changeCanteen('cts')">Starbucks</button>
+        <button type="button" class="canteen_button" id='ctl' onclick="changeCanteen('ctl')">LSK</button>
+        <button type="button" class="canteen_button" id='ctc' onclick="changeCanteen('ctc')">Café</button>
     </div>
     <div id='charts'></div>
+    <script>
+    // Initialization
+        changeDesign(1);
+        changeCanteen('total');
+    </script>
 </body>
