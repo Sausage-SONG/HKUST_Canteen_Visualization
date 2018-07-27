@@ -3,12 +3,14 @@ import json
 import sys
 import codecs
 
+target = 'ct1'
+
 def trans(path,date,data):
     transformed_date = '2018 '+date[-9:-7]+' '+date[-7:-5]+' '+date[-4:-2]+' '+date[-2:]
     newdata = {'date':transformed_date}
     with open(path, "r") as f:
         jsonData = json.load(f)
-    total = jsonData['total']
+    total = jsonData[target]
     newdata['total'] = total
     data.append(newdata)
 
@@ -21,7 +23,6 @@ def write(path,data):
     for dic in data:
         writer.writerow([dic['date'], dic['total']])
     csvfile.close()
-
 
 prefix = 'filter_user_detail_'
 file_name = ''
@@ -76,5 +77,5 @@ for date in range(20180701, 20180719):
         file_name = file_name[:-2]
     file_name = file_name[:-9]
 
-path = './CSV/total.csv'
+path = './CSV/' + target + '.csv'
 write(path, data_total)
