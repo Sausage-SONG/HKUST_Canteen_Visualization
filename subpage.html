@@ -36,13 +36,31 @@
         }
         
         .design_button {
-            width: 500px;
+            width: 498px;
         }
         
         .canteen_button {
-            width: 184px;
+            width: 183px;
         }
         
+        .home_button {
+            width: 1500px; 
+            height: 50px; 
+            border: 2px solid green;
+            border-radius: 25px;
+            background: white; 
+            cursor: pointer; 
+            outline: none; 
+            font-family: Microsoft YaHei; 
+            color: black; 
+            font-size: 16px; 
+            -webkit-transition-duration: 0.7s;
+        }
+        
+        .home_button:hover {
+            background-color: green !important;
+            color: white !important;
+        }
     </style>
     
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -253,4 +271,7 @@
         changeDesign(1);
         changeCanteen('total');
     </script>
+    <div id='back'>
+        <a href='./index.html' target="_self"><button type="button" class='home_button' id='home_button'>Home</button></a>
+    </div>
 </body>
