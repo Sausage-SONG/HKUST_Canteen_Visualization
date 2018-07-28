@@ -1,11 +1,170 @@
 <!DOCTYPE html>
-
+<meta charset="utf-8">
 <head>
-    <title>Homepage</title>
-    <meta charset="utf-8">
-
+    <link rel="stylesheet" href="jquery-ui.css">
+    <script src="jquery-1.11.3.js"></script>
+    <script src="jquery-ui.js"></script>
 </head>
+<style>
 
+    path {
+        fill: #ccc;
+        stroke: #000;
+        stroke-width: 1.5px;
+    }
+    text {
+        font: 500 15px "Helvetica Neue";
+    }
+
+</style>
 <body>
-    <a href='subpage.html'>Subpage</a>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+    var today = new Date();
+    var weekday = today.getUTCDay();
+    var hour = today.getHours();
+    var minute = today.getMinutes();
+    var json_data = null;
+    var radius_LG7 = 10;
+    var radius_LG5 = 10;
+    var radius_LG1 = 10;
+    var radius_ctl = 10;
+    var radius_ctg = 10;
+    var radius_cts = 10;
+    var radius_list;
+    var name_list = ["LG7","LSK","LG5","chinese","LG1","starbuck"];
+    var fakename_list = ["LG7","ctl","LG5","ctg","LG1","cts"]
+    var width = 1000,
+        height = 600;
+    if(minute<5)
+        minute = '00'
+    else if(minute<15)
+        minute = '10'
+    else if(minute<25)
+        minute = '20'
+    else if(minute<35)
+        minute = '30'
+    else if(minute<45)
+        minute = '40'
+    else if(minute<55)
+        minute = '50'
+    else
+        minute = '00'
+    var time = hour.toString()+minute;
+
+    function loadJSON(callback) {
+
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        if(weekday==6||weekday==7){
+            xobj.open('GET', 'average_weekend.json', true);
+        }
+        else{xobj.open('GET', 'average_weekday.json', true);} // Replace 'my_data' with the path to your file
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+            }
+        };
+        xobj.send(null);
+    }
+    function init() {
+        loadJSON(function(response) {
+            // Parse JSON string into object
+            var actual_JSON = JSON.parse(response);
+            json_data = actual_JSON[time];
+                        radius_LG1 = 7*Math.sqrt(json_data['LG1']);
+                        radius_LG5 = 7*Math.sqrt(json_data['LG5']);
+                        radius_LG7 = 7*Math.sqrt(json_data['LG7']);
+                        radius_ctg = 7*Math.sqrt(json_data['ctg']);
+                        radius_ctl = 7*Math.sqrt(json_data['ctl']);
+                        radius_cts = 7*Math.sqrt(json_data['cts']);
+            radius_list = [radius_LG7,radius_ctl,radius_LG5,radius_ctg,radius_LG1,radius_cts];
+            radius_list.forEach(function(T,index){
+                if(T<10){
+                    radius_list[index]=10+radius_list[index]}
+            })
+            setTimeout(draw(),1000)
+        });
+    }
+    function draw() {
+        var arc = d3.svg.arc()
+            .innerRadius(0)
+            .outerRadius(function (d, i) {
+                return radius_list[i];
+            });
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+        var g = svg.selectAll("g")
+            .data([
+                {startAngle: 0, endAngle: Math.PI / 3,text:Math.floor(json_data['LG7'])},
+                {startAngle: Math.PI / 3, endAngle: 2 * Math.PI / 3,text:Math.floor(json_data['ctl']),},
+                {startAngle: 2 * Math.PI / 3, endAngle: 3 * Math.PI / 3,text:Math.floor(json_data['LG5']),},
+                {startAngle: 3 * Math.PI / 3, endAngle: 4 * Math.PI / 3,text:Math.floor(json_data['ctg']),},
+                {startAngle: 4 * Math.PI / 3, endAngle: 5 * Math.PI / 3,text:Math.floor(json_data['LG1']),},
+                {startAngle: 5 * Math.PI / 3, endAngle: 6 * Math.PI / 3,text:Math.floor(json_data['cts']),}
+            ])
+            .enter().append("g")
+            .attr("transform", function (d, i) {
+                    return "translate(" + ((1) * width / 3) + "," + height / 2 + ")";
+                })
+            .attr("id", function(d,i){
+                return name_list[i];
+            });
+
+        g.append("path")
+            .attr("d", arc)
+            .attr("id", function (d, i) {
+                return "arc-" + i;
+            })
+            .attr("style",function (d, i) {
+                if(json_data[fakename_list[i]]<50){
+                    return "fill:green"
+                }
+                else if(json_data[fakename_list[i]]<150){
+                    return "fill:orange"
+                }else{
+                    return "fill:red"
+                }
+            });
+
+        g.append("text")
+            .attr("dx", 2)
+            .attr("dy", -5)
+            .append("textPath")
+            .attr("xlink:href", function(d, i) { return "#arc-" + i; })
+            .text(function(d) { return d.text; });
+
+        var rect1 =  svg.append("rect")
+            .attr("x",500)
+            .attr("y",200)
+            .attr("height",50)
+            .attr("width",100)
+            .attr("fill","red")
+
+        rect1.append("text")
+            .attr("dx",2)
+            .attr("dy",-5)
+            .append("textPath")
+            .text("test")
+        svg.append("rect")
+            .attr("x",500)
+            .attr("y",250)
+            .attr("height",50)
+            .attr("width",100)
+            .attr("fill","orange")
+
+        svg.append("rect")
+            .attr("x",500)
+            .attr("y",300)
+            .attr("height",50)
+            .attr("width",100)
+            .attr("fill","green")
+
+
+    }
+    init();
+</script>
+    <a href="subpage.html" target="_self"><button type="button">Subpage</button></a>
 </body>
