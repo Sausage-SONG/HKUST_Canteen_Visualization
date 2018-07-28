@@ -103,9 +103,9 @@
         // Clear previous SVG function and insert new SVG function
         function clear_() {
             d3.select('#charts').remove('#chart');
-            d3.select('body')
+            d3.select('#Charts')
                 .append('div')
-                    .attr('id','charts');
+                    .attr('id','charts')
         }
         
         function insert() {
@@ -265,7 +265,7 @@
         <button type="button" class="canteen_button" id='ctl' onclick="changeCanteen('ctl')">LSK</button>
         <button type="button" class="canteen_button" id='ctc' onclick="changeCanteen('ctc')">Café</button>
     </div>
-    <div id='charts'></div>
+    <div id='Charts'><div id='charts'></div></div>
     <script>
     // Initialization
         changeDesign(1);
