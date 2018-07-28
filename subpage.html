@@ -18,19 +18,19 @@
         
         #buttons {
             margin: 15px 10px 0px 15px;
+            height: 130px;
         }
         
-        .design_button , .canteen_button { 
-            width: 100px; 
-            height: 50px; 
+        .design_button , .canteen_button {  
+            height: 40%; 
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             background: #DCDCDC; 
             cursor: pointer; 
             outline: none; 
             font-family: Microsoft YaHei; 
             color: black; 
-            font-size: 16px; 
+            font-size: 17px; 
             -webkit-transition-duration: 0.7s;
         }
         
@@ -41,7 +41,7 @@
         
         .design_button {
             width: 32%;
-            margin: 0px 15px 10px 0px;
+            margin: 0px 10px 15px 0px;
         }
         
         .canteen_button {
@@ -69,11 +69,11 @@
         }
         
         #back {
-            margin: 0px 15px 0px 15px;
+            margin: 0px 15px 20px 15px;
         }
         
         #chart {
-            margin: 0px 0px 0px 10%;
+            margin: 0px 0px 0px 30px;
         }
     </style>
     
@@ -135,11 +135,11 @@
         function design1(path) { 
             insert();
             var svg = d3.select('#chart')
-                        .attr('height','600')
-                        .attr('width','1152');
+                        .attr('height','580')
+                        .attr('width','1450');
         
-            var margin = {top: 20, right: 20, bottom: 132, left: 40},
-                margin2 = {top: 516, right: 20, bottom: 30, left: 40},
+            var margin = {top: 20, right: 20, bottom: 127.6, left: 40},
+                margin2 = {top: 498.8, right: 20, bottom: 30, left: 40},
                 width = +svg.attr("width") - margin.left - margin.right,
                 height = +svg.attr("height") - margin.top - margin.bottom,
                 height2 = +svg.attr("height") - margin2.top - margin2.bottom;
