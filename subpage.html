@@ -16,6 +16,10 @@
             pointer-events: all;
         }
         
+        #buttons {
+            margin: 15px 10px 0px 15px;
+        }
+        
         .design_button , .canteen_button { 
             width: 100px; 
             height: 50px; 
@@ -36,11 +40,13 @@
         }
         
         .design_button {
-            width: 33%;
+            width: 32%;
+            margin: 0px 15px 10px 0px;
         }
         
         .canteen_button {
-            width: 12.2%;
+            width: 11.8%;
+            margin: 0px 3px 0px 0px;
         }
         
         .home_button {
@@ -63,7 +69,11 @@
         }
         
         #back {
-            padding-top: 95px;
+            margin: 0px 15px 0px 15px;
+        }
+        
+        #chart {
+            margin: 0px 0px 0px 10%;
         }
     </style>
     
@@ -125,11 +135,11 @@
         function design1(path) { 
             insert();
             var svg = d3.select('#chart')
-                        .attr('height','500')
-                        .attr('width','960');
+                        .attr('height','600')
+                        .attr('width','1152');
         
-            var margin = {top: 20, right: 20, bottom: 110, left: 40},
-                margin2 = {top: 430, right: 20, bottom: 30, left: 40},
+            var margin = {top: 20, right: 20, bottom: 132, left: 40},
+                margin2 = {top: 516, right: 20, bottom: 30, left: 40},
                 width = +svg.attr("width") - margin.left - margin.right,
                 height = +svg.attr("height") - margin.top - margin.bottom,
                 height2 = +svg.attr("height") - margin2.top - margin2.bottom;
@@ -259,7 +269,7 @@
     <div id='buttons'>
         <button type="button" class="design_button" id='design1' onclick="changeDesign(1)">Brush & Zoom</button>
         <button type="button" class="design_button" id='design2' onclick="">Design2</button>
-        <button type="button" class="design_button" id='design3' onclick="">Design3</button><br/><br/>
+        <button type="button" class="design_button" id='design3' onclick="">Design3</button><br/>
         <button type="button" class="canteen_button" id='total' onclick="changeCanteen('total')">Total</button>
         <button type="button" class="canteen_button" id='ct1' onclick="changeCanteen('ct1')">LG1</button>
         <button type="button" class="canteen_button" id='ct5' onclick="changeCanteen('ct5')">Mcdonald's</button>

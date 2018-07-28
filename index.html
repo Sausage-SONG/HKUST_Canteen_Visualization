@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-    <link rel="stylesheet" href="jquery-ui.css">
-    <script src="jquery-1.11.3.js"></script>
-    <script src="jquery-ui.js"></script>
+    <link rel="stylesheet" href="/js_and_css/jquery-ui.css">
+    <script src="/js_and_css/jquery-1.11.3.js"></script>
+    <script src="/js_and_css/jquery-ui.js"></script>
 </head>
 <style>
 
@@ -57,9 +57,9 @@
         var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
         if(weekday==6||weekday==7){
-            xobj.open('GET', 'average_weekend.json', true);
+            xobj.open('GET', '/data/average_weekend.json', true);
         }
-        else{xobj.open('GET', 'average_weekday.json', true);} // Replace 'my_data' with the path to your file
+        else{xobj.open('GET', '/data/average_weekday.json', true);} // Replace 'my_data' with the path to your file
         xobj.onreadystatechange = function () {
             if (xobj.readyState == 4 && xobj.status == "200") {
                 // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
