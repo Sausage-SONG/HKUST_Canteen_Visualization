@@ -85,6 +85,7 @@
     <script>
         // Lists
         var canteens = ['total','ct1','ct5','ct7','ctg','cts','ctl','ctc'],
+            canteens_dict = {'total':'total','ct1':'LG1','ct5':"Mcdonald's",'ct7':'LG7','ctg':'Nanbei','cts':'Starbucks','ctl':'LSK','ctc':'Café'};
             hours = ['morning','noon','night'];
         
         // Colors var
@@ -120,7 +121,7 @@
                 var canteen = document.getElementById(canteens[name]);
                 if (canteen.hasAttribute('disabled')){
                     canteen.removeAttribute('disabled');
-                    changeCSS(canteen,canteen.id,'undisabled');
+                    changeCSS(canteen,canteens_dict[canteen.id],'undisabled');
                 }
             }
                 for (name in hours){
@@ -135,7 +136,7 @@
                 var canteen = document.getElementById(canteens[name]);
                 if (!canteen.hasAttribute('disabled')){
                     canteen.setAttribute('disabled','true');
-                    changeCSS(canteen,canteen.id,'disabled');
+                    changeCSS(canteen,canteens_dict[canteen.id],'disabled');
                 }
             }
                 for (name in hours){
