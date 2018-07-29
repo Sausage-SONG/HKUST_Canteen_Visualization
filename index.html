@@ -57,9 +57,9 @@
         var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
         if(weekday==6||weekday==7){
-            xobj.open('GET', '/data/average_weekend.json', true);
+            xobj.open('GET', '/HKUST_Canteen_Visualization/data/average_weekend.json', true);
         }
-        else{xobj.open('GET', '/data/average_weekday.json', true);} // Replace 'my_data' with the path to your file
+        else{xobj.open('GET', '/HKUST_Canteen_Visualization/data/average_weekday.json', true);} // Replace 'my_data' with the path to your file
         xobj.onreadystatechange = function () {
             if (xobj.readyState == 4 && xobj.status == "200") {
                 // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
