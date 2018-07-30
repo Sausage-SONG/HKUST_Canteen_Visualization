@@ -34,50 +34,54 @@
         }
         
         .canteen_button:hover , .design_button:hover , .hour_button:hover {
-            background-color: #1919E6 !important;
+            background-color: #64A0F0 !important;
             color: white !important;
             font-size: 1.4em !important;
         }
         
         .design_button {
             width: 48.5%;
-            margin: 0px 0.5% 15px 0.5%;
+            margin: 0px 0.5% 7.5px 0.5%;
         }
         
         .canteen_button {
             width: 11.5%;
-            margin: 0px 0.3% 15px 0.3%;
+            margin: 7.5px 0.3% 7.5px 0.3%;
         }
         
         .hour_button {
             width: 32.5%;
-            margin: 0px 0.25% 0px 0.25%;
+            margin: 7.5px 0.25% 0px 0.25%;
         }
         
         .home_button {
-            width: 95%; 
-            margin: 10px 2.5% 0px 2.5%;
-            height: 50px; 
-            border: 2px solid #14DC14;
+            width: 5%; 
+            margin: 10px 47.5% 0px 47.5%;
+            height: 20px;
+            border: 1px solid black;
             border-radius: 25px;
             background: white; 
             cursor: pointer; 
             outline: none; 
             font-family: Microsoft YaHei; 
             color: black; 
-            font-size: 1.2em; 
+            font-size: 0.5em; 
             -webkit-transition-duration: 0.7s;
         }
         
         .home_button:hover {
-            background-color: #14DC14 !important;
-            color: white !important;
-            font-size: 1.4em !important;
+            border: none;
+            width: 95%;
+            margin: 10px 2.5% 0px 2.5%;
+            height: 50px;
+            background-color: #14DC14;
+            color: white;
+            font-size: 1.4em;
         }
         
         #chart {
-            display: block;
-            margin: auto;
+            display: block !important;
+            margin: auto !important;
         }
     </style>
     
@@ -104,7 +108,8 @@
             selected = '#1919E6',
             middle = '#',
             black = '#FFFFFF',
-            white = '#000000';
+            white = '#000000',
+            green = '#14DC14';
         
         // Current_canteen var and change function
         var current_canteen = 'total';
@@ -157,11 +162,6 @@
                     }
                     changeCSS(hour,hours_dict[hour.id],'undisabled');
                 }
-                
-                d3version4.select('#charts')
-                    .append('form')
-                    .attr('id','design2form');
-                document.getElementById('design2form').innerHTML = "<label><input type='radio' name='mode' value='multiples' checked> Multiples</label><label><input type='radio' name='mode' value='stacked'> Total</label>";
             }
             draw();
         }
@@ -194,7 +194,7 @@
             if (current_design == 1){
                 design1('./data/'+current_canteen+'.csv');
             } else {
-                design2('/data/'+current_hour+'_peak_mean.csv');
+                design2('./data/'+current_hour+'_peak_mean.csv');
             }
         }
         
@@ -349,6 +349,10 @@
         // End of Design 1 
         // Design 2 (Stacked to Multiples)
         function design2(path){
+            d3version4.select('#charts')
+                .append('form')
+                .attr('id','design2form');
+            document.getElementById('design2form').innerHTML = "<label><input type='radio' class='magic-radio' name='mode' value='multiples' checked> Multiples</label><label><input type='radio' class='magic-radio' name='mode' value='stacked'>Total</label>";
             insert();
             var parseDate = d3version3.time.format("%H:%M").parse,
             formatDate = function(d) {
@@ -371,8 +375,8 @@
             };
 
             var margin = {top: 10, right: 20, bottom: 20, left: 60},
-                width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+                width = 1450 - margin.left - margin.right,
+                height = 550 - margin.top - margin.bottom;
 
             var y0 = d3version3.scale.ordinal()
                 .rangeRoundBands([height, 0], .2);
@@ -398,13 +402,13 @@
 
             var color = d3version3.scale.category10();
 
-            var svg = d3version3.select("body").append("svg")
+            var svg = d3version3.select("#charts").append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            d3version3.csv("/data/morning_peak_mean.csv", function(error, data) {
+            d3version3.csv(path, function(error, data) {
 
               data.forEach(function(d) {
                 d.date = parseDate(d.date);
@@ -426,9 +430,9 @@
 
               group.append("text")
                   .attr("class", "group-label")
-                  .attr("x", -6)
+                  .attr("x", -40)
                   .attr("y", function(d) { return y1(d.values[0].value/2); })
-                  .attr("dy", ".35em")
+                  .attr("dy", "0.35em")
                   .text(function(d) { return d.key; });
 
               group.selectAll("rect")
