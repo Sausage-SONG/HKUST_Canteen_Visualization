@@ -55,10 +55,10 @@
         }
         
         .home_button {
-            width: 5%; 
-            margin: 10px 47.5% 0px 47.5%;
+            width: 50%; 
+            margin: 10px 25% 0px 25%;
             height: 20px;
-            border: 1px solid black;
+            border: 2px solid #14DC14;
             border-radius: 25px;
             background: white; 
             cursor: pointer; 
@@ -220,11 +220,11 @@
             insert();
             
             var svg = d3version4.select('#chart')
-                        .attr('height','580')
+                        .attr('height','550')
                         .attr('width','1450');
         
             var margin = {top: 20, right: 20, bottom: 127.6, left: 40},
-                margin2 = {top: 498.8, right: 20, bottom: 30, left: 40},
+                margin2 = {top: 470, right: 20, bottom: 30, left: 40},
                 width = +svg.attr("width") - margin.left - margin.right,
                 height = +svg.attr("height") - margin.top - margin.bottom,
                 height2 = +svg.attr("height") - margin2.top - margin2.bottom;
@@ -351,8 +351,19 @@
         function design2(path){
             d3version4.select('#charts')
                 .append('form')
-                .attr('id','design2form');
-            document.getElementById('design2form').innerHTML = "<label><input type='radio' class='magic-radio' name='mode' value='multiples' checked> Multiples</label><label><input type='radio' class='magic-radio' name='mode' value='stacked'>Total</label>";
+                .attr('id','design2form')
+                .attr('style:align','right');
+            var form_var = document.getElementById('design2form');
+            form_var.style.margin = '10px 20px 2.5px 0px';
+            form_var.innerHTML = "<label><input type='radio' class='magic-radio' name='mode' value='multiples' checked> Multiples</label><label><input type='radio' class='magic-radio' name='mode' value='stacked'>Total</label>";
+            d3version4.select('#charts')
+                .append('p')
+                .attr('id','period_notice')
+                .attr('style:align','right');
+            var p_var = document.getElementById('period_notice');
+            p_var.style.margin = '5px 20px 0px 0px'; 
+            p_var.innerHTML = "Period: 18/06/2018 to 18/07/2018";
+            p_var.style.fontSize = '1em';
             insert();
             var parseDate = d3version3.time.format("%H:%M").parse,
             formatDate = function(d) {
@@ -374,9 +385,9 @@
                 return result; 
             };
 
-            var margin = {top: 10, right: 20, bottom: 20, left: 60},
+            var margin = {top: 5, right: 20, bottom: 20, left: 60},
                 width = 1450 - margin.left - margin.right,
-                height = 550 - margin.top - margin.bottom;
+                height = 500 - margin.top - margin.bottom;
 
             var y0 = d3version3.scale.ordinal()
                 .rangeRoundBands([height, 0], .2);
@@ -402,7 +413,7 @@
 
             var color = d3version3.scale.category10();
 
-            var svg = d3version3.select("#charts").append("svg")
+            var svg = d3version3.select("#chart")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
               .append("g")
@@ -482,8 +493,8 @@
 
 <body>
     <div id='buttons'>
-        <button type="button" class="design_button" id='design1' onclick="changeDesign(1)">Brush & Zoom</button>
-        <button type="button" class="design_button" id='design2' onclick="changeDesign(2)">Design2</button><br/>
+        <button type="button" class="design_button" id='design1' onclick="changeDesign(1)">Overall Data</button>
+        <button type="button" class="design_button" id='design2' onclick="changeDesign(2)">Rush Hours Data</button><br/>
         <button type="button" class="canteen_button" id='total' onclick="changeCanteen('total')">Total</button>
         <button type="button" class="canteen_button" id='ct1' onclick="changeCanteen('ct1')">LG1</button>
         <button type="button" class="canteen_button" id='ct5' onclick="changeCanteen('ct5')">Mcdonald's</button>
