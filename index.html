@@ -40,6 +40,18 @@
             color: white;
             font-size: 1.4em;
         }
+        
+        .captrue{
+            align = center;
+            font-family: Microsoft YaHei; 
+            font-size: 1.4em;
+        }
+        
+        #title{
+            align = center;
+            font-family: Microsoft YaHei; 
+            font-size: 3em;
+        }
     </style>
     <script>
         var today = new Date();
@@ -260,7 +272,10 @@
     </script>
 </head>
 <body>
+    <h1 id='title'>HKUST Canteen Visualization</h1>
     <div id='chart'></div>
+    <p class='capture'>Estimated number of customers of HKUST canteens.</p><br/>
+    <p class='capture'>Data scope: 18/06/2018 to 18/07/2018</p>
     <a href="subpage.html" target="_self"><button class='subpage_button' type="button">View More Data</button></a>
     <script>init();</script>
 </body>
