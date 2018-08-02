@@ -18,7 +18,7 @@
 
         .subpage_button {
             width: 50%; 
-            margin: 10px 25% 0px 25%;
+            margin: 20px 25% 0px 25%;
             height: 20px;
             border: 2px solid #14DC14;
             border-radius: 25px;
@@ -41,16 +41,22 @@
             font-size: 1.4em;
         }
         
-        .captrue{
-            align = center;
+        .capture{
+            text-align: center;
             font-family: Microsoft YaHei; 
             font-size: 1.4em;
+            margin: 10px 0px 0px 0px;
+        }
+        
+        #capture_down{
+            font-size: 1em;
         }
         
         #title{
-            align = center;
+            text-align: center;
             font-family: Microsoft YaHei; 
             font-size: 3em;
+            margin: 4px 0px 0px 0px;
         }
     </style>
     <script>
@@ -69,7 +75,7 @@
         var name_list = ["LG7","LSK","LG5","chinese","LG1","starbuck"];
         var fakename_list = ["LG7","ctl","LG5","ctg","LG1","cts"]
         var width = 1000,
-            height = 600;
+            height = 550;
         if(minute<5)
             minute = '00'
         else if(minute<15)
@@ -273,9 +279,9 @@
 </head>
 <body>
     <h1 id='title'>HKUST Canteen Visualization</h1>
+    <pre class='capture' id='capture_up'>Estimated number of customers of HKUST canteens.</pre>
     <div id='chart'></div>
-    <p class='capture'>Estimated number of customers of HKUST canteens.</p><br/>
-    <p class='capture'>Data scope: 18/06/2018 to 18/07/2018</p>
+    <pre class='capture' id='capture_down'>Data scope: 18/06/2018 to 18/07/2018</pre>
     <a href="subpage.html" target="_self"><button class='subpage_button' type="button">View More Data</button></a>
     <script>init();</script>
 </body>
