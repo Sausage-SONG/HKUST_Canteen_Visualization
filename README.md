@@ -6,4 +6,4 @@ Group member:
 - SUN Yushi  
 - SONG Sizhe   
   
-Our work is published at https://sausage-song.github.io/HKUST_Canteen_Visualization/index.html
+Our work is published at https://sausage-song.github.io/HKUST_Canteen_Visualization/
