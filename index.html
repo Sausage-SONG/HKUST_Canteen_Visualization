@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
+    <title>HKUST Canteen Visualization</title>
     <link rel="stylesheet" href="./js_and_css/jquery-ui.css">
     <script src="./js_and_css/jquery-1.11.3.js"></script>
     <script src="./js_and_css/jquery-ui.js"></script>
@@ -94,12 +95,12 @@
                 // Parse JSON string into object
                 var actual_JSON = JSON.parse(response);
                 json_data = actual_JSON[time];
-                            radius_LG1 = 7*Math.sqrt(json_data['LG1']);
-                            radius_LG5 = 7*Math.sqrt(json_data['LG5']);
-                            radius_LG7 = 7*Math.sqrt(json_data['LG7']);
-                            radius_ctg = 7*Math.sqrt(json_data['ctg']);
-                            radius_ctl = 7*Math.sqrt(json_data['ctl']);
-                            radius_cts = 7*Math.sqrt(json_data['cts']);
+                            radius_LG1 = 15*Math.sqrt(json_data['LG1']);
+                            radius_LG5 = 15*Math.sqrt(json_data['LG5']);
+                            radius_LG7 = 15*Math.sqrt(json_data['LG7']);
+                            radius_ctg = 15*Math.sqrt(json_data['ctg']);
+                            radius_ctl = 15*Math.sqrt(json_data['ctl']);
+                            radius_cts = 15*Math.sqrt(json_data['cts']);
                 radius_list = [radius_LG7,radius_ctl,radius_LG5,radius_ctg,radius_LG1,radius_cts];
                 radius_list.forEach(function(T,index){
                     if(T<10){
@@ -128,7 +129,7 @@
                 ])
                 .enter().append("g")
                 .attr("transform", function (d, i) {
-                        return "translate(" + ((1) * width / 3) + "," + height / 2 + ")";
+                        return "translate(" + ((1) * width / 2) + "," + height / 2 + ")";
                     })
                 .attr("id", function(d,i){
                     return name_list[i];
@@ -158,30 +159,35 @@
                 .text(function(d) { return d.text; });
 
             var rect1 =  svg.append("rect")
-                .attr("x",500)
+                .attr("x",900)
                 .attr("y",200)
                 .attr("height",50)
                 .attr("width",100)
                 .attr("fill","red")
 
-            rect1.append("text")
-                .attr("dx",2)
-                .attr("dy",-5)
-                .append("textPath")
-                .text("test")
             svg.append("rect")
-                .attr("x",500)
+                .attr("x",900)
                 .attr("y",250)
                 .attr("height",50)
                 .attr("width",100)
                 .attr("fill","orange")
 
             svg.append("rect")
-                .attr("x",500)
+                .attr("x",900)
                 .attr("y",300)
                 .attr("height",50)
                 .attr("width",100)
                 .attr("fill","green")
+            
+            svg.append("text")
+                .attr('x',850)
+                .attr('y',250)
+                .text('150');
+            
+            svg.append("text")
+                .attr('x',850)
+                .attr('y',300)
+                .text('50');
         }
     </script>
 </head>
