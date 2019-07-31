@@ -3,5 +3,5 @@ HKUST 2018 Summer UROP project of Group One supervised by Prof. QU Huamin.
   
 Group member:  
 - LI Xiang  
-- SUN Yushi  
+- [SUN Yushi](https://ysunbp.github.io/)  
 - [SONG Sizhe](https://sausage-song.github.io/)   
